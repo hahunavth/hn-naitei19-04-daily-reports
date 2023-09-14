@@ -1,0 +1,1 @@
+# hn-naitei19-04-daily-reports
