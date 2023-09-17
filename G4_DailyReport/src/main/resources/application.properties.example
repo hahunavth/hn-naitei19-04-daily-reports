@@ -19,4 +19,3 @@ spring.datasource.username=mysqluser
 spring.datasource.password=mysqlpass
 spring.datasource.url=jdbc:mysql://localhost:3306/myDb?createDatabaseIfNotExist=true
 spring.jpa.hibernate.ddl-auto=update
->>>>>>> 00e2333 (create model and model relationship)
