@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add new department</title>
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - Departments management')"></head>
 
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
 
 <div class="d-flex" id="wrapper">
     <div th:replace="admin/fragments/sidebar.html :: side-bar"></div>
 
     <div class="w-100">
-
         <div th:replace="admin/fragments/header.html :: header"></div>
+
         <div class="container">
             <!-- Department form -->
             <form th:action="@{/admin/departments/create}" method="post">
@@ -42,11 +27,4 @@
             </form>
         </div>
     </div>
-
 </div>
-</div>
-<!-- Link to delete the newly added department -->
-<!--                <a th:if="${departmentAdded}" th:href="@{/departments/delete/{id}}" th:data-id="${newDepartment.id}" class="btn btn-danger">Delete Newly Added Department</a>-->
-
-</body>
-</html>

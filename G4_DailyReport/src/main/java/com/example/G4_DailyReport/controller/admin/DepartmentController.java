@@ -90,7 +90,7 @@ public class DepartmentController implements ICrudController<Department, UUID> {
 
     @Override
     @GetMapping("/{id}/show")
-    public String show(Model model, UUID id) {
+    public String show(Model model, @PathVariable UUID id) {
         return null;
     }
 
@@ -105,7 +105,6 @@ public class DepartmentController implements ICrudController<Department, UUID> {
     }
 
     @Override
-    @CrossOrigin
     @DeleteMapping("/{id}")
     public String delete(Model model, @PathVariable("id") UUID id) {
         departmentService.deleteById(id);
