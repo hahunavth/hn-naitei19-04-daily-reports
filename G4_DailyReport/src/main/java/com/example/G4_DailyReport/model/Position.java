@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "positions")
 public class Position extends BaseEntity {
     private String name;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "position")
     private List<User> users;
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "departments")
 public class Department extends BaseEntity {
+    @Column(columnDefinition = "text", nullable = false)
     private String name;
 
     @Column(columnDefinition = "text")
@@ -23,6 +24,6 @@ public class Department extends BaseEntity {
     private String description;
 
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     private List<User> users;
 }
