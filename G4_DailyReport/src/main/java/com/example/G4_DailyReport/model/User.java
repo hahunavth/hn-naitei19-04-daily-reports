@@ -29,11 +29,15 @@ public class User extends BaseEntity{
     private LocalDate dateOfBirth;
 
     @ManyToOne
-    @JoinColumn(name="department_id", nullable=false)
+    @JoinColumn(name="department_id"
+            , nullable=true
+    )
     private Department department;
 
     @ManyToOne
-    @JoinColumn(name="position_id", nullable=false)
+    @JoinColumn(name="position_id"
+//            , nullable=false
+    )
     private Position position;
 
     @OneToMany(mappedBy = "user")
@@ -41,4 +45,7 @@ public class User extends BaseEntity{
 
     @OneToMany(mappedBy = "user")
     private List<ProjectMember> projectMembers;
+
+    @OneToMany(mappedBy = "user")
+    private List<MemberJobsProgress> memberJobsProgresses;
 }
