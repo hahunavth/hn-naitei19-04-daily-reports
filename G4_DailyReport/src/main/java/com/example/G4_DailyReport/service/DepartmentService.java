@@ -5,9 +5,12 @@ import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.DepartmentRepository;
 import com.example.G4_DailyReport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -57,5 +60,54 @@ public class DepartmentService {
 
     public Page<User> findManagers(UUID id, Pageable pageable) {
         return userRepository.findAllByDepartmentIdAndPositionName(id, "Manager", pageable);
+    }
+
+    public void addManager(UUID departmentId, UUID managerId) {
+        User manager = userRepository.findById(managerId).orElse(null);
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+
+        this.throwIfDepartmentAndManagerIsNull(department, manager);
+        this.throwIfManagerNotHaveDepartment(manager);
+
+        manager.setDepartment(department);
+        userRepository.save(manager);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void addManagers(UUID departmentId, Iterable<UUID> managerIds) {
+        for(UUID managerId : managerIds) {
+            addManager(departmentId, managerId);
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void removeManager(UUID departmentId, UUID managerId) {
+        User manager = userRepository.findById(managerId).orElse(null);
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+
+        this.throwIfDepartmentAndManagerIsNull(department, manager);
+        this.throwIfManagerNotHaveDepartment(manager);
+        this.throwIfManagerBelongToDepartment(manager, departmentId);
+
+        manager.setDepartment(null);
+        userRepository.save(manager);
+    }
+
+    private void throwIfDepartmentAndManagerIsNull(Department department, User manager) throws DataIntegrityViolationException {
+        if(manager == null || department == null) {
+            throw new DataIntegrityViolationException("Manager or Department not found");
+        }
+    }
+
+    private void throwIfManagerNotHaveDepartment(User manager) throws DataIntegrityViolationException {
+        if(manager.getDepartment() == null) {
+            throw new DataIntegrityViolationException("Manager does not have a department");
+        }
+    }
+
+    private void throwIfManagerBelongToDepartment(User manager, UUID departmentId) throws DataIntegrityViolationException {
+        if(!manager.getDepartment().getId().equals(departmentId)) {
+            throw new DataIntegrityViolationException("Manager does not belong to this department");
+        }
     }
 }

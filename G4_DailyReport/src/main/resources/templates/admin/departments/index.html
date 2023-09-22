@@ -67,11 +67,10 @@
                                         th:href="@{/admin/departments/{id}/show(id=${department.id})}"
                                 ></a>
                             </td>
-                            <td>
-                                <a
-                                        th:text="${department.getUsers().stream().count()}"
-                                        th:href="@{/admin/departments/{id}/managers(id=${department.id})}">
-                                </a>
+                            <td
+                                    th:text="${department.getUsers().stream().count()}"
+                            >
+                                <!-- todo: count managers instead of users -->
                             </td>
                             <td th:text="${department.description}"></td>
                             <td th:text="${#temporals.format(department.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
@@ -99,7 +98,7 @@
                     <div class="clearfix">
                         <div
                                 th:if="${page.totalPages > 1}"
-                                th:replace="~{admin/shared/_pagination :: copy(${page}, '/admin/departments')}"
+                                th:replace="~{admin/shared/_pagination :: copy(${page}, '/admin/departments', ${query})}"
                         ></div>
                     </div>
                 </div>

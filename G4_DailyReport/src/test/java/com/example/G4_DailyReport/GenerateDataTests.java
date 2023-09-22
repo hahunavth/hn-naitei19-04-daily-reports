@@ -26,6 +26,11 @@ public class GenerateDataTests {
     @Test
 //    @Transactional
     public void testGenerateData() {
+        // reset database
+        userRepository.deleteAll();
+        departmentRepository.deleteAll();
+        positionRepository.deleteAll();
+
         loadPosition();
         loadDepartment();
         loadUserData();
@@ -90,6 +95,33 @@ public class GenerateDataTests {
             user.setAvatar("https://www.w3schools.com/howto/img_avatar.png");
             userRepository.save(user);
 
+            user = new User();
+            user.setName("Nguyen Van C");
+            user.setUserName("user_3");
+            user.setPassword("123456");
+            user.setAvatar("https://www.w3schools.com/howto/img_avatar.png");
+            user.setPosition(positions.get(1));
+            user.setDateOfBirth(LocalDate.of(1999, 1, 1));
+            userRepository.save(user);
+
+            user = new User();
+            user.setName("Nguyen Van D");
+            user.setUserName("user_4");
+            user.setPassword("123456");
+            user.setAvatar("https://www.w3schools.com/howto/img_avatar.png");
+            user.setPosition(positions.get(2));
+            user.setDateOfBirth(LocalDate.of(1999, 1, 1));
+            userRepository.save(user);
+
+            for(int i=5; i < 20; i++) {
+                user = new User();
+                user.setName("Nguyen Van " + i);
+                user.setUserName("user_" + i);
+                user.setPassword("123456");
+                user.setAvatar("https://www.w3schools.com/howto/img_avatar.png");
+                user.setDateOfBirth(LocalDate.of(1999, 1, 1));
+                userRepository.save(user);
+            }
         }
         System.out.println(userRepository.count());
     }
