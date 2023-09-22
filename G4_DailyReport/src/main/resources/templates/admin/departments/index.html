@@ -51,6 +51,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
+                            <!-- todo: add image -->
                             <th>Name</th>
                             <th>Managers</th>
                             <th>Description</th>
@@ -60,7 +61,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="department : ${departments}">
-                            <td th:text="${department.name}"></td>
+                            <td>
+                                <a
+                                        th:text="${department.name}"
+                                        th:href="@{/admin/departments/{id}/show(id=${department.id})}"
+                                ></a>
+                            </td>
                             <td>
                                 <a
                                         th:text="${department.getUsers().stream().count()}"
