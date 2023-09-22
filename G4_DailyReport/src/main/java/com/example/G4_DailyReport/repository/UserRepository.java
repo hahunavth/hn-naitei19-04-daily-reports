@@ -16,13 +16,12 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-
+    Optional<User> findByUserName(String username);
     Page<User> findByDepartment(Department department, Pageable pageable);
     Page<User> findByDepartmentIsNull(Pageable pageable);
     List<User> findByDepartmentIsNull();
     List<User> findByDepartment(Department department);
     Page<User> findAllByDepartmentIdAndPositionName(UUID department, String position, Pageable pageable);
-
-    Optional<User> findByUserName(String username);
-
+    Page<User> findAllByDepartmentIsNullAndPositionName(String position, Pageable pageable);
+    Page<User> findAllByDepartmentIsNullAndPositionNameAndNameContaining(String position, String name, Pageable pageable);
 }

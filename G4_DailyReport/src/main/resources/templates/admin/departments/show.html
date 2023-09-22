@@ -67,8 +67,10 @@
                             </a>
                         </div>
                     </div>
+                </fieldset>
+            </form>
 
-                    <br>
+            <br>
 
                     <!--  Manager list  -->
                     <div class="w-100 d-flex justify-content-between flex-row mt-4">
@@ -78,17 +80,13 @@
                         ></legend>
                         <a
                                 class="float-end mx-3 mb-2"
-                                th:href="@{/admin/departments/{id}/managers/add(id=${department.id})}">
+                                th:href="@{/admin/departments/{id}/managers/new(id=${department.id})}">
                             <button type="button" class="btn btn-success">Add new manager</button>
                         </a>
                     </div>
                     <div
-                            th:replace="~{admin/shared/_manager_table :: table (${managerPage})}"
+                            th:replace="~{admin/shared/_manager_table :: table (${managerPage}, ${department.id})}"
                     ></div>
-
-
-                </fieldset>
-            </form>
 
             <!--    -->
         </div>
