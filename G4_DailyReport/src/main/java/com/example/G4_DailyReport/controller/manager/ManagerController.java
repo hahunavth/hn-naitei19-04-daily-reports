@@ -1,6 +1,20 @@
-package com.example.G4_DailyReport.controller;
+package com.example.G4_DailyReport.controller.manager;
+
+import com.example.G4_DailyReport.bean.ReportBean;
+import com.example.G4_DailyReport.controller.manager.request.ReportFilter;
+import com.example.G4_DailyReport.service.ReportService;
+
+
+import com.example.G4_DailyReport.repository.DepartmentRepository;
+import com.example.G4_DailyReport.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,14 +24,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.service.ManagerService;
 
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/manager")
 public class ManagerController {
 	@Autowired
+
 	ManagerService managerService;
 
 	@Autowired
 	private ManagerSingleton managerSingleton;
+
 
 	@ModelAttribute("user")
 	public User loadCurrentUser() {
@@ -55,5 +79,4 @@ public class ManagerController {
 		int currentPage = managerService.delete(managerService.getUser(userId));
 		return "redirect:/manager/departments/listEmployee?page=" + currentPage;
 	}
-
 }

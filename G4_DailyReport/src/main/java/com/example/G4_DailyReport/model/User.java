@@ -20,6 +20,8 @@ public class User extends BaseEntity{
 
     private String name;
 
+    private String roles;
+
     @Column(columnDefinition = "text")
     private String description;
 
@@ -40,7 +42,7 @@ public class User extends BaseEntity{
     )
     private Position position;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Report> reports;
 
     @OneToMany(mappedBy = "user")

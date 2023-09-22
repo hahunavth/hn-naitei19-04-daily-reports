@@ -1,4 +1,4 @@
-package com.example.G4_DailyReport.controller;
+package com.example.G4_DailyReport.controller.manager;
 
 import java.util.List;
 
