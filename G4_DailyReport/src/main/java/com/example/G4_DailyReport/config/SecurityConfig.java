@@ -11,7 +11,7 @@ public class SecurityConfig {
     @SuppressWarnings("is deprecated and marked for removal")
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().permitAll();
+        http.authorizeHttpRequests().anyRequest().permitAll().and().cors().and().csrf().disable();
         return http.build();
     }
 }
