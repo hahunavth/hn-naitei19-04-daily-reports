@@ -34,7 +34,7 @@ public class ReportController {
     private UserRepository userRepo;
     @Autowired
     private ProjectRepository projectRepo;
-
+    
     public ReportController(ReportRepository reportRepo) {
         this.reportRepo = reportRepo;
     }
