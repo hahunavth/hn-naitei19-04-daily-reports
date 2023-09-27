@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Table(name = "departments")
+@EntityListeners(AuditingEntityListener.class)
 public class Department extends BaseEntity {
     @Column(columnDefinition = "text", nullable = false)
     private String name;
