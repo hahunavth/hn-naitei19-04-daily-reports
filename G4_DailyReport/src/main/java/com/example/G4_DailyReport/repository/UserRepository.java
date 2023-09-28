@@ -1,6 +1,7 @@
 package com.example.G4_DailyReport.repository;
 
 import com.example.G4_DailyReport.model.Department;
+import com.example.G4_DailyReport.model.Project;
 import com.example.G4_DailyReport.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Page<User> findAllByDepartmentIdAndPositionName(UUID department, String position, Pageable pageable);
     Page<User> findAllByDepartmentIsNullAndPositionName(String position, Pageable pageable);
     Page<User> findAllByDepartmentIsNullAndPositionNameAndNameContaining(String position, String name, Pageable pageable);
+    List<User> findAllByProjectMembersAndRoles(Project project, String role);
 }

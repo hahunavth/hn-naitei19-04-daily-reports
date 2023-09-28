@@ -1,12 +1,14 @@
 package com.example.G4_DailyReport.controller.user;
 
 
+import com.example.G4_DailyReport.model.Department;
 import com.example.G4_DailyReport.model.Project;
 import com.example.G4_DailyReport.model.Report;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.ProjectRepository;
 import com.example.G4_DailyReport.repository.ReportRepository;
 import com.example.G4_DailyReport.repository.UserRepository;
+import com.example.G4_DailyReport.service.EmailSenderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Controller("UserReportController")
 @RequestMapping("/reports")
@@ -34,6 +37,8 @@ public class ReportController {
     private UserRepository userRepo;
     @Autowired
     private ProjectRepository projectRepo;
+    // @Autowired
+    // private EmailSenderService emailSenderService;
     
     public ReportController(ReportRepository reportRepo) {
         this.reportRepo = reportRepo;
@@ -69,7 +74,10 @@ public class ReportController {
         if (errors.hasErrors()) {
             return "/user/reports/new";
         }
-        reportRepo.save(report);
+
+        Report savedReport = reportRepo.save(report);
+        // Send email to manager in the project
+        // emailSenderService.sendReportNotifyEmailToManager(savedReport);
         return "redirect:/reports/edit";
     }
 }
