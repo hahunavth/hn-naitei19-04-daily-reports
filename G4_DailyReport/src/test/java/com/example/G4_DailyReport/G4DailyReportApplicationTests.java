@@ -179,11 +179,12 @@ class G4DailyReportApplicationTests {
 //        Report report = new Report();
 //        report.setReportDate(LocalDate.of(2023, 9, 20));
         String actualWork = """
-                - Thời gian làm việc: W ( 8:45 - 17:45)
-                - Thời gian học tiếng nhật: 0
-                Actual work:
                 - Annotated controllers trong spring mvc  (8:45 - 11:45)
                 - View technologies trong spring mvc (12:45 - 17:45)      
+                """;
+        String workingTime = """
+                - Thời gian làm việc: W ( 8:45 - 17:45)
+                - Thời gian học tiếng nhật: 0
                 """;
 //        report.setReasonCannotCompleteWork("""
 //                - N/A
@@ -209,6 +210,7 @@ class G4DailyReportApplicationTests {
             report2.setReasonCannotCompleteWork("""
                     - N/A
                     """);
+            report2.setWorkingTime(workingTime);
             report2.setActualWork(actualWork);
             report2.setUser(user1);
             report2.setProject(project);

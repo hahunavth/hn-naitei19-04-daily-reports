@@ -7,9 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public interface ReportService {
     List<Report> retrieveReports();
     Page<ReportBean> findPaginated(Pageable pageable, ReportFilter reportFilter);
+
+    ReportBean findReportById(UUID id);
 }

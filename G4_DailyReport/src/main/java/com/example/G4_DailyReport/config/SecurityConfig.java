@@ -32,11 +32,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.userDetailsService(jpaUserDetailsService);
-        http.authorizeHttpRequests(
-                auth -> {
-                    auth
-                            .anyRequest().authenticated();
-                });
+        http.authorizeHttpRequests(auth -> {
+            auth.anyRequest().authenticated();
+        });
 //        http.sessionManagement(
 //                session ->
 //                        session.sessionCreationPolicy(
@@ -46,8 +44,8 @@ public class SecurityConfig {
         http.formLogin();
 //        http.httpBasic(withDefaults());
 
-//        http.csrf(csrf -> csrf.disable());
-        //http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(csrf -> csrf.disable());
+//        http.csrf(AbstractHttpConfigurer::disable);
 //        http.headers(headers -> headers.frameOptions(frameOptionsConfig-> frameOptionsConfig.disable()));
         // http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return http.build();
