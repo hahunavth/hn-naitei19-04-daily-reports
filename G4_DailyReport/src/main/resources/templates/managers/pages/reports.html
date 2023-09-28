@@ -47,7 +47,8 @@
                             <td class="text-center" th:text="${report.getProject().getName()}">Naitei trainning</td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-sm btn-success showModalBtn" data-bs-toggle="modal" data-bs-target="#reportModal" th:data-id="${report.id.toString()}">
+                                <button type="button" class="btn btn-sm btn-success showModalBtn" data-bs-toggle="modal"
+                                        data-bs-target="#reportModal" th:data-id="${report.id.toString()}">
                                     View Detail
                                 </button>
                             </td>
@@ -109,9 +110,11 @@
         </div>
     </div>
     <!--Detail Report modal-->
-    <div  th:replace="~{managers/pages/report::report}">
+    <div th:replace="~{managers/pages/report::report}">
         Report detail
     </div>
+
+
 </div>
 </body>
 </html>

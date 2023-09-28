@@ -34,6 +34,11 @@
                     <i class="fa fa-tachometer-alt me-2"></i>
                     Reports
                 </a>
+                <a th:href="@{/manager/projects}" class="nav-item nav-link"
+                   th:classappend="${activeLink == 'projects' ? 'active' : ''}">
+                    <i class="fa fa-tachometer-alt me-2"></i>
+                    Projects
+                </a>
             </div>
         </nav>
     </div>

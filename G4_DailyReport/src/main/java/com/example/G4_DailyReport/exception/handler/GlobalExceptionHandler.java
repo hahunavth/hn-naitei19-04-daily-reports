@@ -11,7 +11,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<String> handleIdNotFoundException(IdNotFoundException ex) {
-        System.out.println("hello id not found ex");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
