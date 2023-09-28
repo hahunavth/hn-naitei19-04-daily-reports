@@ -26,9 +26,15 @@
             <div class="navbar-nav w-100">
                 <a th:href="@{/manager/departments}" class="nav-item nav-link"
                    th:classappend="${activeLink == 'departments' ? 'active' : ''}">
-                    <i class="fa fa-tachometer-alt me-2"></i>
+                    <i class="fa fa-building me-2"></i>
                 Departments
                 </a>
+                
+                <a th:href="@{/manager/projects-management}" class="nav-item nav-link"
+                 th:classappend="${activeLink == 'projetcs' ? 'active' : ''}">
+                 <i class="fas fa-project-diagram me-2">
+				 </i>Projects</a>
+
                 <a th:href="@{/manager/reports}" class="nav-item nav-link"
                    th:classappend="${activeLink == 'reports' ? 'active' : ''}">
                     <i class="fa fa-tachometer-alt me-2"></i>

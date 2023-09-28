@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -15,9 +15,11 @@
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
-            <input class="form-control border-0" type="search" placeholder="Search">
-        </form>
+      <form th:fragment="search-form" method="get" class="d-none d-md-flex ms-4"
+      th:action="${searchAction}">
+    <input th:value="${query}" name="query" class="form-control border-0" type="search"
+           placeholder="Search by name">
+</form>
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
