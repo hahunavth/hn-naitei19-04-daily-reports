@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-<div th:fragment="copy (page, url)" th:if="${page.totalPages > 0}" class="pagination">
+<div th:fragment="copy (page, url, query)" th:if="${page.totalPages > 0}" class="pagination">
     <ul class="pagination">
 <!--        -->
         <li class="prev previous_page" th:classappend="${page.first} ? disabled">
