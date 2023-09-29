@@ -59,7 +59,8 @@ public class DepartmentService {
     }
 
     public Page<User> findManagers(UUID id, Pageable pageable) {
-        return userRepository.findAllByDepartmentIdAndPositionName(id, "Manager", pageable);
+//        return userRepository.findAllByDepartmentIdAndPositionName(id, "Manager", pageable);
+        return userRepository.findAllByDepartmentIdAndRolesContaining(id, "ROLE_MANAGER", pageable);
     }
 
     public void addManager(UUID departmentId, UUID managerId) {
@@ -67,7 +68,7 @@ public class DepartmentService {
         Department department = departmentRepository.findById(departmentId).orElse(null);
 
         this.throwIfDepartmentAndManagerIsNull(department, manager);
-        this.throwIfManagerNotHaveDepartment(manager);
+        this.throwIfManagerHaveDepartment(manager);
 
         manager.setDepartment(department);
         userRepository.save(manager);
@@ -87,7 +88,7 @@ public class DepartmentService {
 
         this.throwIfDepartmentAndManagerIsNull(department, manager);
         this.throwIfManagerNotHaveDepartment(manager);
-        this.throwIfManagerBelongToDepartment(manager, departmentId);
+        this.throwIfManagerNotBelongToDepartment(manager, departmentId);
 
         manager.setDepartment(null);
         userRepository.save(manager);
@@ -105,7 +106,13 @@ public class DepartmentService {
         }
     }
 
-    private void throwIfManagerBelongToDepartment(User manager, UUID departmentId) throws DataIntegrityViolationException {
+    private void throwIfManagerHaveDepartment(User manager) throws DataIntegrityViolationException {
+        if(manager.getDepartment() != null) {
+            throw new DataIntegrityViolationException("Manager does not have a department");
+        }
+    }
+
+    private void throwIfManagerNotBelongToDepartment(User manager, UUID departmentId) throws DataIntegrityViolationException {
         if(!manager.getDepartment().getId().equals(departmentId)) {
             throw new DataIntegrityViolationException("Manager does not belong to this department");
         }

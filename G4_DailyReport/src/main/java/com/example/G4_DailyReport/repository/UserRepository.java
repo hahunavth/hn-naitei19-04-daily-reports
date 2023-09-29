@@ -30,4 +30,10 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query(value = "select u.userName, u.id from User u WHERE u.name in ?1")
     Map<String, UUID> findAllUserIdByUserName(Set<String> UserName);
     Optional<User> findByUserName(String username);
+//    Page<User> findAllByDepartmentIdAndPositionName(UUID department, String position, Pageable pageable);
+//    Page<User> findAllByDepartmentIsNullAndPositionName(String position, Pageable pageable);
+//    Page<User> findAllByDepartmentIsNullAndPositionNameAndNameContaining(String position, String name, Pageable pageable);
+    Page<User> findAllByDepartmentIdAndRolesContaining(UUID department, String role, Pageable pageable);
+    Page<User> findAllByDepartmentIsNullAndRolesContaining(String role, Pageable pageable);
+    Page<User> findAllByDepartmentIsNullAndRolesContainingAndNameContaining(String role, String name, Pageable pageable);
 }

@@ -10,6 +10,9 @@
         <div class="container">
             <!-- Department form -->
             <form th:action="@{/admin/departments/create}" method="post">
+
+                <legend>Create new department</legend>
+
                 <!-- Input fields for department details -->
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -21,8 +24,10 @@
                 </div>
                 <div class="float-end mt-2">
                     <!-- Submit button to add the department -->
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-primary" value="Add Department"/>
+                    <a th:href="@{/admin/departments}" class="text-decoration-none">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    </a>
+                    <input type="submit" class="btn btn-success" value="Add Department"/>
                 </div>
             </form>
         </div>

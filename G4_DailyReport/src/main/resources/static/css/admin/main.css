@@ -276,3 +276,28 @@ table.table .avatar {
 .error-actions .btn {
     margin-right:10px;
 }
+
+
+.modal-backdrop {
+  --bs-backdrop-zindex: 1050;
+  --bs-backdrop-bg: rgba(0, 0, 0, 0.24) !important;
+  --bs-backdrop-opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--bs-backdrop-zindex);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bs-backdrop-bg) !important;
+}
+.modal-backdrop.fade {
+  opacity: 0;
+}
+.modal-backdrop.show {
+  opacity: var(--bs-backdrop-opacity);
+}
+
+#sidebar-wrapper {
+    opacity: 0.95;
+    /*background-color: rgba(17, 33, 55, 0.97) !important;*/
+}
