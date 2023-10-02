@@ -3,7 +3,7 @@ package com.example.G4_DailyReport.controller.admin;
 import com.example.G4_DailyReport.model.Department;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.service.DepartmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +20,9 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/departments")
+@RequiredArgsConstructor
 public class DepartmentController {
-    @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @GetMapping("")
     public String index(
