@@ -2,6 +2,7 @@ package com.example.G4_DailyReport.service.impl;
 
 import com.example.G4_DailyReport.bean.ReportBean;
 import com.example.G4_DailyReport.controller.manager.request.ReportFilter;
+import com.example.G4_DailyReport.exception.IdNotFoundException;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.UserRepository;
 import com.example.G4_DailyReport.service.ReportService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,6 +69,15 @@ public class ReportServiceImpl implements ReportService {
         }
 
         return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), filteredReports.size());
+    }
+
+    @Override
+    public ReportBean findReportById(UUID id) {
+        Report report = reportRepository.findById(id).orElseThrow(()-> new IdNotFoundException("Not found report with id: " + id));
+        ReportBean reportBean = modelMapper.map(report,ReportBean.class);
+        User user = userRepository.findByUserName(report.getCreatedBy()).orElseThrow(() -> new UsernameNotFoundException("Username not found "+ report.getCreatedBy()));
+        reportBean.setCreatedByUser(user);
+        return reportBean;
     }
 
     private List<ReportBean> filterNameAndDate(List<ReportBean> receivedReports, String name, LocalDate date) {

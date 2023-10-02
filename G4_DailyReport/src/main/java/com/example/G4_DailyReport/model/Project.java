@@ -1,6 +1,7 @@
 package com.example.G4_DailyReport.model;
 
 import com.example.G4_DailyReport.enums.ProjectStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,11 +26,14 @@ public class Project extends BaseEntity {
     private ProjectStatus status;
 
     @OneToMany(mappedBy = "project")
+//    @JsonIgnore
     private List<Report> reports;
 
     @OneToMany(mappedBy = "project")
+//    @JsonIgnore
     private List<ProjectProcess> projectProcesses;
 
     @OneToMany(mappedBy = "project")
+//    @JsonIgnore
     private List<ProjectMember> projectMembers;
 }

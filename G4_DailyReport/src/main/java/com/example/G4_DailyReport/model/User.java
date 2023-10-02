@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,23 +32,28 @@ public class User extends BaseEntity{
     private LocalDate dateOfBirth;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="department_id"
             , nullable=true
     )
     private Department department;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="position_id"
 //            , nullable=false
     )
     private Position position;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+//    @JsonIgnore
     private List<Report> reports;
 
     @OneToMany(mappedBy = "user")
+//    @JsonIgnore
     private List<ProjectMember> projectMembers;
 
     @OneToMany(mappedBy = "user")
+//    @JsonIgnore
     private List<MemberJobsProgress> memberJobsProgresses;
 }
