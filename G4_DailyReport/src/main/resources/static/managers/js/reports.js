@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // flash msg
+    $(".alert").show().delay(3000).fadeOut();
+
     // Set input date field is current date
 // Lấy ngày hôm nay
     let today = new Date();
@@ -24,8 +27,7 @@ $(document).ready(function () {
     $(".showModalBtn").click(function () {
 
         const id = $(this).data("id")
-        // const id = "006e7bb6-3150-44e3-b4cd-3317778619eb" // kiểm tra nếu id không có thì sao
-        // console.log(id2)
+
         // Gửi yêu cầu AJAX để lấy thông tin chi tiết với ID
         $.ajax({
             url: `/manager/reports/${id}`,
@@ -43,17 +45,20 @@ $(document).ready(function () {
                 $("#reportModal .created-by").text(byUser.name);
                 $("#reportModal .to-user").text(toUser.name)
                 // $("#reportModal .report-date").text(report.reportDate)
+
                 $("#reportModal .project-name").text(project.name)
                 // append thì phải clear
                 $("#reportModal .actual-work").empty()
                 $("#reportModal .reason-cannot-complete").empty()
                 $("#reportModal .tomorrow-plan").empty()
+
                 $("#reportModal .working-time").empty()
                 //append
                 $("#reportModal .actual-work").append(report.actualWork.replaceAll("+", "<br>-"))
-                $("#reportModal .reason-cannot-complete").append(report.reasonCannotCompleteWork.replaceAll("-", "<br>-"))
+                $("#reportModal .reason-cannot-complete").append(report.reasonCannotCompleteWork.replaceAll("+", "<br>-"))
                 $("#reportModal .tomorrow-plan").append(report.tomorrowPlan.replaceAll("+", "<br>-"))
                 $("#reportModal .working-time").append(report.workingTime.replaceAll("+", "<br>-"))
+
 
                 // Kích hoạt modal
                 // $("#myModal").modal("show");
@@ -61,7 +66,6 @@ $(document).ready(function () {
             error: function(e) {
                 // Xử lý lỗi nếu có => alert
                 $(".alert-danger").text(": " + e.responseText).show();
-
                 setTimeout(function() {
                     $(".alert-danger").hide();
                 }, 3000);

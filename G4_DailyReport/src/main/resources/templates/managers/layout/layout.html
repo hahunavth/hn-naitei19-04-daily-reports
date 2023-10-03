@@ -41,7 +41,9 @@
         A simple danger alert—check it out!
     </div>
     <div th:replace="~{managers/components/sidebar :: sidebar(${activeTab})}"></div>
-
+    <div class="alert alert-success alert-fixed w-25" role="alert" th:if="${message}" th:text="${message}">
+        This is a success alert—check it out!
+    </div>
     <div class="content">
         <div th:replace="~{managers/components/header::header}"></div>
         <div layout:fragment="content">

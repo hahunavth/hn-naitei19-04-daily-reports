@@ -34,7 +34,7 @@ public class ReportController {
 
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/reports/{id}")
-    public ResponseEntity<ReportBean> retrieveReport(@PathVariable UUID id) {
+    public ResponseEntity<ReportBean> retrieveReport(@PathVariable UUID id, Model model) {
         ReportBean reportBean = reportService.findReportById(id);
         return new ResponseEntity<>(reportBean, HttpStatus.OK);
     }
@@ -48,9 +48,6 @@ public class ReportController {
             @RequestParam("name") Optional<String> name,
             @RequestParam("date") Optional<LocalDate> date
     ) {
-//        Optional<String> name = Optional.empty();
-//        Optional<LocalDate> date= Optional.empty();
-        System.out.println(name);
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
         ReportFilter reportFilter = new ReportFilter();
