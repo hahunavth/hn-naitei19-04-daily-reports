@@ -36,12 +36,13 @@
 </head>
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!--Alert-->
-    <div class="alert alert-danger fixed-top" role="alert" style="display: none;">
-        A simple danger alert—check it out!
-    </div>
+
     <div th:replace="~{managers/components/sidebar :: sidebar(${activeTab})}"></div>
     <div class="alert alert-success alert-fixed w-25" role="alert" th:if="${message}" th:text="${message}">
+        This is a success alert—check it out!
+    </div>
+
+    <div id="alert" class="alert alert-success alert-fixed w-25" role="alert" style="display: none;" >
         This is a success alert—check it out!
     </div>
     <div class="content">
@@ -50,8 +51,7 @@
             <h1>Static content for prototyping purposes only</h1>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Praesent scelerisque neque neque, ac elementum quam dignissim interdum. sellus et placerat elit. Lorem
-                ipsum
+                Praesent scelerisque neque neque, ac elementum quam dignissim interdum. sellus et placerat elit. Lorem ipsum
                 dolor sit amet, consectetur adipiscing elit.
                 Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
                 Phasellus et placerat elit.
@@ -75,5 +75,6 @@
 <!-- Template Javascript -->
 <script th:src="@{/managers/js/main.js}"></script>
 <script th:src="@{/managers/js/reports.js}"></script>
+<script th:src="@{/managers/js/project.js}"></script>
 </body>
 </html>

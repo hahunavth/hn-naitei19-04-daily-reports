@@ -1,8 +1,6 @@
 package com.example.G4_DailyReport.repository;
 
 import com.example.G4_DailyReport.model.Department;
-import com.example.G4_DailyReport.model.Project;
-import com.example.G4_DailyReport.model.ProjectMember;
 import com.example.G4_DailyReport.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +13,7 @@ import java.util.*;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByUserName(String username);
+
     Page<User> findByDepartment(Department department, Pageable pageable);
     Page<User> findByDepartmentIsNull(Pageable pageable);
     List<User> findByDepartmentIsNull();
@@ -31,4 +29,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findAllMemberInProjectByProjectIdAndRoles(UUID projectId, String roles);
     @Query(value = "select u.userName, u.id from User u WHERE u.name in ?1")
     Map<String, UUID> findAllUserIdByUserName(Set<String> UserName);
+    Optional<User> findByUserName(String username);
 }

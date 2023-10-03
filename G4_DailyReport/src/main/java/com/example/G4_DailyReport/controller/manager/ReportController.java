@@ -48,6 +48,7 @@ public class ReportController {
             @RequestParam("name") Optional<String> name,
             @RequestParam("date") Optional<LocalDate> date
     ) {
+
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
         ReportFilter reportFilter = new ReportFilter();
@@ -79,9 +80,11 @@ public class ReportController {
             }
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
         model.addAttribute("date", date.orElse(LocalDate.now()));
         model.addAttribute("name", name.orElse(""));
         model.addAttribute("activeTab", "reports");
+
         return "managers/pages/reports";
     }
 }

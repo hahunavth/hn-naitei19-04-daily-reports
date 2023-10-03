@@ -1,25 +1,24 @@
 package com.example.G4_DailyReport.controller.manager;
 
-import com.example.G4_DailyReport.bean.ReportBean;
-import com.example.G4_DailyReport.controller.manager.request.ReportFilter;
 import com.example.G4_DailyReport.enums.ProjectStatus;
 import com.example.G4_DailyReport.model.Project;
 import com.example.G4_DailyReport.service.ProjectService;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,6 +35,25 @@ public class ProjectController {
         projectService.create(project);
         redirectAttributes.addFlashAttribute("message", "Data processed successfully!");
         return "redirect:" + request.getRequestURI();
+    }
+
+    @GetMapping("/projects/{id}")
+    public ResponseEntity<Project> show(@PathVariable UUID id) {
+        Project project = projectService.findById(id);
+        return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
+
+    @PutMapping("/projects/{id}")
+    public ResponseEntity<Project> update(@PathVariable UUID id, @RequestBody Project project) {
+        Project updatedProject = projectService.update(id,project);
+        return new ResponseEntity<>(updatedProject,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/projects/{id}")
+    public ResponseEntity<String> delete(@PathVariable UUID id){
+        projectService.delete(id);
+        return new ResponseEntity<>("Delete successfully!",HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('MANAGER')")
