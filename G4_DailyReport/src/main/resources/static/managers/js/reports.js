@@ -2,6 +2,14 @@ $(document).ready(function () {
     // flash msg
     $(".alert").show().delay(3000).fadeOut();
 
+// Kiểm tra xem có flash message trong localStorage không
+    var flashMessage = localStorage.getItem('flashMessage');
+    if (flashMessage) {
+        $("#alert").text(flashMessage).show().delay(3000).fadeOut();
+
+        // Xóa flash message khỏi localStorage sau khi đã hiển thị
+        localStorage.removeItem('flashMessage');
+    }
     // Set input date field is current date
 // Lấy ngày hôm nay
     let today = new Date();
@@ -33,7 +41,8 @@ $(document).ready(function () {
             url: `/manager/reports/${id}`,
             method: "GET",
             // data: { id: id },
-            success: function(report) {
+            success: function (report) {
+
                 // Xử lý dữ liệu trả về từ yêu cầu AJAX
                 console.log(report)
                 const byUser = report.createdByUser;
@@ -44,8 +53,6 @@ $(document).ready(function () {
                 $(".modal-title-date").text(report.reportDate)
                 $("#reportModal .created-by").text(byUser.name);
                 $("#reportModal .to-user").text(toUser.name)
-                // $("#reportModal .report-date").text(report.reportDate)
-
                 $("#reportModal .project-name").text(project.name)
                 // append thì phải clear
                 $("#reportModal .actual-work").empty()
@@ -69,7 +76,6 @@ $(document).ready(function () {
                 setTimeout(function() {
                     $(".alert-danger").hide();
                 }, 3000);
-
             }
         });
     });

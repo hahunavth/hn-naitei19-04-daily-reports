@@ -179,6 +179,7 @@ class G4DailyReportApplicationTests {
 //        Report report = new Report();
 //        report.setReportDate(LocalDate.of(2023, 9, 20));
         String actualWork = """
+
                 - Annotated controllers trong spring mvc  (8:45 - 11:45)
                 - View technologies trong spring mvc (12:45 - 17:45)      
                 """;

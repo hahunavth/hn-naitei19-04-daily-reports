@@ -25,15 +25,15 @@ public class Project extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonIgnore
     private List<Report> reports;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonIgnore
     private List<ProjectProcess> projectProcesses;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonIgnore
     private List<ProjectMember> projectMembers;
 }
