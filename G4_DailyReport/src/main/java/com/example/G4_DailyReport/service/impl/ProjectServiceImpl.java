@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.Condition;
 import org.modelmapper.ModelMapper;
 
+import com.example.G4_DailyReport.model.ProjectProcess;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,6 @@ import java.util.Collections;
 import java.util.List;
 
 import java.util.UUID;
-
-
 
 @Service
 @RequiredArgsConstructor
@@ -65,8 +64,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project update(UUID id, Project project) {
         Project existingUser = projectRepository.findById(id).orElseThrow(()-> new IdNotFoundException("Project id not found" + id));
-        Condition<Object, Object> notNull = ctx -> ctx.getSource() != null;
-        modelMapper.getConfiguration().setPropertyCondition(notNull);
         modelMapper.map(project,existingUser);
         projectRepository.save(existingUser);
         return existingUser;
@@ -77,13 +74,17 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.deleteById(id);
     }
 
+
+
+    @Override
+    public List<ProjectProcess> getProjectProcesses(UUID id) {
+        Project project = projectRepository.findById(id).orElseThrow(()-> new IdNotFoundException("Project Id not found"));
+        return project.getProjectProcesses();
+     }
+
     private List<Project> retrieveProjects(String name) {
         //TODO: lấy thông tin project được tạo bởi người dùng đang đăng nhập vào hệ thống
         List<Project> projects = projectRepository.findByIdSorted(CurrentUserUtil.getCurrentUser().getUsername()).orElseThrow(() -> new UsernameNotFoundException("Username not found " + CurrentUserUtil.getCurrentUser().getUsername()));
-
-        List<Project> projects1 = projects.stream().filter(project -> project.getName().contains(name)).toList();
-
-        return projects1;
-
+        return  projects.stream().filter(project -> project.getName().contains(name)).toList();
     }
 }

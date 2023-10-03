@@ -4,27 +4,17 @@ import com.example.G4_DailyReport.config.SecurityConfig;
 import com.example.G4_DailyReport.enums.ProjectStatus;
 import com.example.G4_DailyReport.model.*;
 import com.example.G4_DailyReport.repository.*;
-import com.example.G4_DailyReport.util.CurrentUserUtil;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.awt.image.PixelGrabber;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @SpringBootTest
 class G4DailyReportApplicationTests {
@@ -40,6 +30,8 @@ class G4DailyReportApplicationTests {
     ReportRepository reportRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    ProjectProcessRepository projectProcessRepository;
 
     @Autowired
     private SecurityConfig securityConfig;
@@ -252,8 +244,30 @@ class G4DailyReportApplicationTests {
     }
 
     @Test
-    void seedReports() {
+    void seedProjectProcess() {
+        Project project = new Project();
+        project.setName("Trainning Java");
+        project.setStartDate(LocalDate.of(2023,9,7));
+        project.setEndDate(LocalDate.of(2023,10,2));
+        project.setStatus(ProjectStatus.IN_PROGRESS);
+        projectRepository.save(project);
 
+        ProjectProcess projectProcess = new ProjectProcess();
+        projectProcess.setName("Learning git");
+        projectProcess.setProject(project);
+        projectProcess.setEndDate(LocalDate.of(2023,9,2));
+        projectProcess.setStartDate(LocalDate.of(2023,9,7));
+        projectProcess.setDescription("Learn basic cmd with Git");
+
+        ProjectProcess projectProcess1 = new ProjectProcess();
+        projectProcess1.setDescription("Learn basic concept of spring framework");
+        projectProcess1.setName("Learn spring framework");
+        projectProcess1.setProject(project);
+        projectProcess1.setEndDate(LocalDate.of(2023,9,2));
+        projectProcess1.setStartDate(LocalDate.of(2023,9,7));
+
+        projectProcessRepository.save(projectProcess);
+        projectProcessRepository.save(projectProcess1);
     }
 
 }
