@@ -71,6 +71,7 @@ class G4DailyReportApplicationTests {
         Department department = new Department();
         department.setImage("/managers/img/user.jpg");
         department.setDescription("abcdggggg");
+        department.setName("IT");
         departmentRepository.saveAndFlush(department);
         User user = new User();
         user.setAvatar("/managers/img/user.jpg");
@@ -240,6 +241,7 @@ class G4DailyReportApplicationTests {
         user.setPosition(position);
         user.setDepartment(department);
         userRepository.save(user);
+
         User user2 = new User();
         user2.setName("Huy Linh3");
         user2.setUserName("huylinh3");
@@ -249,6 +251,14 @@ class G4DailyReportApplicationTests {
         user2.setDepartment(department);
         userRepository.save(user2);
 
+        User user3 = new User();
+        user3.setName("Huy Linh5");
+        user3.setUserName("huylinh5");
+        user3.setPassword(passwordEncoder.encode("boo"));
+        user3.setRoles("ROLE_USER,ROLE_MANAGER");
+        user3.setPosition(position);
+        user3.setDepartment(department);
+        userRepository.save(user3);
     }
 
     @Test

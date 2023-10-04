@@ -11,7 +11,7 @@ $(document).ready(function () {
         var employeeId = $(this).data('department-id');
         $.ajax({
             url: '/admin/departments/' + employeeId,
-            type: 'DELETE',
+            type: 'get',
             success: function () {
                 // Reload the page after successful deletion
                 location.reload();

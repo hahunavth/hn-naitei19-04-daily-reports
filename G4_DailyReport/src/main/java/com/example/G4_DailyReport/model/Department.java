@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "departments")
 @EntityListeners(AuditingEntityListener.class)
 public class Department extends BaseEntity {
-    @Column(columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "text", nullable = false, unique = true)
     private String name;
 
     @Column(columnDefinition = "text")
@@ -26,6 +26,6 @@ public class Department extends BaseEntity {
     private String description;
 
 
-    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> users;
 }

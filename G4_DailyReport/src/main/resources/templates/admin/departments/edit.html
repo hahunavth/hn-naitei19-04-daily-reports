@@ -9,6 +9,7 @@
         <div class="container">
             <!-- Department form -->
             <form action="#" th:action="@{/admin/departments/update}" th:object="${department}" th:method="UPDATE">
+                <legend>Update department</legend>
                 <!-- Input fields for department details -->
                 <div class="form-group">
                     <label>Name:</label>
@@ -21,8 +22,10 @@
                 <input type="hidden" th:value="${department.id}" th:attr="name='id'"/>
                 <div class="float-end mt-2">
                     <!-- Submit button to add the department -->
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-primary" value="Update Department"/>
+                    <a th:href="@{/admin/departments}" class="text-decoration-none">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    </a>
+                    <input type="submit" class="btn btn-warning" value="Update Department"/>
                 </div>
             </form>
         </div>
