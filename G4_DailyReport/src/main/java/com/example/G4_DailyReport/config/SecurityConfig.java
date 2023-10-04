@@ -59,7 +59,7 @@ public class SecurityConfig {
                     .failureUrl("/login-error.html")
                     .permitAll()
                 .and()
-                    .logout()
+                    .logout().deleteCookies()
                     .permitAll()
                     .logoutSuccessUrl("/")
                 .and().cors().and().csrf().disable();
