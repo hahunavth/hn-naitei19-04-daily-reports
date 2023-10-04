@@ -29,12 +29,12 @@ function processInitEvent() {
                 contentType: "application/json",
                 success: function (response) {
                     location.reload();
-                    localStorage.setItem('flashMessage', 'Create complete!');
-                    console.log(response)
+                    $("#alert").text("Creat complete!!").show().delay(3000).fadeOut();
                 },
             });
             } else {
                 // // TODO: cập nhật thông tin vừa sửa
+
             $.ajax({
                 type: "PUT",
                 url: "http://localhost:8080/manager/project-processes/" + selectedRowId,
@@ -43,8 +43,7 @@ function processInitEvent() {
                 contentType: "application/json",
                 success: function (response) {
                     location.reload();
-                    localStorage.setItem('flashMessage', 'Edit complete');
-                    console.log(response)
+                    $("#alert").text("Edit complete!!").show().delay(3000).fadeOut();
                 },
             });
             }
@@ -76,27 +75,10 @@ function processInitEvent() {
                         }
                     },
                 });
+                $("#processModal").modal("show")
             }
         })
 
-
-        //
-        // //hiển thị thông tin modal để xóa dữ liệu
-        // $("#deleteProject").click(function () {
-        //     if (!selectedRowId) {
-        //         $("#deleteProjectBtn").hide()
-        //         $("#deleteModal .modal-body").text("Please choose record to delete!")
-        //     } else {
-        //         $("#deleteModal .modal-body").text(" Do you want to delete this record?")
-        //         $("#deleteProjectBtn").show()
-        //     }
-        // })
-        //
-
-        //
-        //     $("#update-project-modal").modal("hide")
-        // })
-        //
         //Xóa dữ liệu
         $("#deleteModal .btn-primary").click(function () {
             $.ajax({
@@ -105,7 +87,6 @@ function processInitEvent() {
                 success: function (process) {
                     location.reload();
                     localStorage.setItem('flashMessage', 'Delete complete!');
-                    // console.log(project)
                 }
             });
         })
