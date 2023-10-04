@@ -46,11 +46,18 @@
                             <li class="dropdown">
                                 <a id="user-profile" href="#" class="dropdown-toggle" data-toggle="dropdown"><img
                                         src="http://lorempixel.com/100/100/people/9/"
-                                        class="img-responsive img-thumbnail img-circle"> Username</a>
+                                        class="img-responsive img-thumbnail img-circle">
+                                    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                                </a>
                                 <ul class="dropdown-menu dropdown-block" role="menu">
-                                    <li><a href="#">Profil edition</a></li>
+                                    <li><a href="#">Profile edition</a></li>
                                     <li><a href="#">Admin</a></li>
-                                    <li><a href="#">Logout</a></li>
+                                    <li>
+
+                                        <form name="logoutForm" th:action="@{/logout}" method="post">
+                                            <input class = "btn btn-primary" type="submit" value="Sign Out"/>
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

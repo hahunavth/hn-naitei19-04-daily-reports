@@ -9,6 +9,7 @@ import com.example.G4_DailyReport.repository.ProjectRepository;
 import com.example.G4_DailyReport.repository.ReportRepository;
 import com.example.G4_DailyReport.repository.UserRepository;
 import com.example.G4_DailyReport.service.EmailSenderService;
+import com.example.G4_DailyReport.util.CurrentUserUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,8 +70,8 @@ public class ReportController {
 
     @PostMapping("/")
     public String create(@Valid Report report, Errors errors) {
-        List<User> users = userRepo.findAll();
-        report.setUser(users.get(0));
+        User user = userRepo.findByUserName(CurrentUserUtil.getCurrentUser().getUsername()).orElse(null);
+        report.setUser(user);
         if (errors.hasErrors()) {
             return "/user/reports/new";
         }

@@ -169,3 +169,11 @@ text-align: center;
     background: #245682 !important;
     color: #fff !important;
 }
+p.error {
+    font-weight: bold;
+    color: red;
+}
+
+div.logout {
+    float: right;
+}
