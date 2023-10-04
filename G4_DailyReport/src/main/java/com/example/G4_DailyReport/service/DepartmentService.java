@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.service;
 
+import com.example.G4_DailyReport.enums.Role;
 import com.example.G4_DailyReport.model.Department;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.DepartmentRepository;
@@ -60,7 +61,7 @@ public class DepartmentService {
 
     public Page<User> findManagers(UUID id, Pageable pageable) {
 //        return userRepository.findAllByDepartmentIdAndPositionName(id, "Manager", pageable);
-        return userRepository.findAllByDepartmentIdAndRolesContaining(id, "ROLE_MANAGER", pageable);
+        return userRepository.findAllByDepartmentIdAndRole(id, Role.ROLE_MANAGER, pageable);
     }
 
     public void addManager(UUID departmentId, UUID managerId) {

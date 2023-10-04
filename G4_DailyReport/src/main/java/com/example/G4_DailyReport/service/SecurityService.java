@@ -21,7 +21,7 @@ public class SecurityService {
     public void updateUser(User user, String password, Role role) {
         user.setPassword(encoder.encode(password));
         user.setRole(role);
-        user.setRoles(role.toString());
+        user.setRole(role);
     }
 
     @Transactional

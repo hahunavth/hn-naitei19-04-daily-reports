@@ -1,11 +1,14 @@
 package com.example.G4_DailyReport.validation;
 
 import com.example.G4_DailyReport.dto.ImportUserDto;
+import com.example.G4_DailyReport.dto.UsernameAndId;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.DepartmentRepository;
 import com.example.G4_DailyReport.repository.PositionRepository;
 import com.example.G4_DailyReport.repository.UserRepository;
 import com.example.G4_DailyReport.service.UserService;
+import groovy.lang.Tuple;
+import jakarta.persistence.TupleElement;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,24 +46,28 @@ public class UserImportExcelValidator extends ImportExcelValidator<ImportUserDto
     @Override
     public ImportExcelValidator<ImportUserDto, User> validate() {
         // Convert data thành list
-        List<ImportUserDto> blockUnitExcelDTOS = this.getSourceObjects();
+        List<ImportUserDto> importUserDtos = this.getSourceObjects();
 
         // Lấy dữ liệu ra để check
-        Set<String> usernames = blockUnitExcelDTOS.stream().map(ImportUserDto::getUserName).collect(Collectors.toSet());
-//        Set<String> positionNames = blockUnitExcelDTOS.stream().map(ImportUserDto::getDepartmentName).collect(Collectors.toSet());
-//        Set<String> departmentNames = blockUnitExcelDTOS.stream().map(ImportUserDto::getPositionName).collect(Collectors.toSet());
+        Set<String> usernames = importUserDtos.stream().map(ImportUserDto::getUserName).collect(Collectors.toSet());
 
         // Thực hiên query 1 loạt, sắm trước để tý chỉ việc dùng để check trong for. Tuyệt đối không được viêt query trong for
-        mapUserIdsByUsername = userRepository.findAllUserIdByUserName(usernames);
+        mapUserIdsByUsername = new HashMap<>();
+        List<UsernameAndId> lst = userRepository.findAllUserIdByUserName(usernames);
+        for (UsernameAndId usernameAndId: lst) {
+            mapUserIdsByUsername.put(usernameAndId.getUsername(), usernameAndId.getId());
+        }
 
         int temp = 0;
 
         // thực hiện for validate lỗi ở đây, validate ở đây thường là validate logic giữa nhiều bảng
         for (ImportUserDto dto: this.getSourceObjects()) {
             List<String> keyComments = new ArrayList<>();
-            UUID blockId = mapUserIdsByUsername.get(dto.getUserName());
+            UUID userId = mapUserIdsByUsername.get(dto.getUserName());
 
-            // ...
+            if (userId != null) {
+                keyComments.add("User " + dto.getUserName() + "đã tồn tại");
+            }
 
             // xac dinh từng dòng có lỗi và vị trí dòng lỗi
             temp++;

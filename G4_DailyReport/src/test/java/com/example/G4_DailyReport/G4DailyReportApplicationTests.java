@@ -2,6 +2,7 @@ package com.example.G4_DailyReport;
 
 import com.example.G4_DailyReport.config.SecurityConfig;
 import com.example.G4_DailyReport.enums.ProjectStatus;
+import com.example.G4_DailyReport.enums.Role;
 import com.example.G4_DailyReport.model.*;
 import com.example.G4_DailyReport.repository.*;
 import jakarta.transaction.Transactional;
@@ -155,7 +156,7 @@ class G4DailyReportApplicationTests {
         user2.setName("Vu Thanh Ha");
         user2.setDescription("HEDSPU K66 VN04");
         user2.setUserName("trongnghia2");
-        user2.setRoles("ROLE_MANAGER");
+        user2.setRole(Role.valueOf("ROLE_MANAGER"));
         user2.setPassword(passwordEncoder.encode("foo"));
         user2.setPosition(position2);
         user2.setDepartment(department2);
@@ -229,7 +230,7 @@ class G4DailyReportApplicationTests {
         user.setName("Huy Linh4");
         user.setUserName("huylinh4");
         user.setPassword(passwordEncoder.encode("foo"));
-        user.setRoles("ROLE_USER,ROLE_MANAGER");
+        user.setRole(Role.ROLE_ADMIN);
         user.setPosition(position);
         user.setDepartment(department);
         userRepository.save(user);
@@ -238,7 +239,7 @@ class G4DailyReportApplicationTests {
         user2.setName("Huy Linh3");
         user2.setUserName("huylinh3");
         user2.setPassword(passwordEncoder.encode("boo"));
-        user2.setRoles("ROLE_USER");
+        user2.setRole(Role.ROLE_USER);
         user2.setPosition(position);
         user2.setDepartment(department);
         userRepository.save(user2);
@@ -247,7 +248,7 @@ class G4DailyReportApplicationTests {
         user3.setName("Huy Linh5");
         user3.setUserName("huylinh5");
         user3.setPassword(passwordEncoder.encode("boo"));
-        user3.setRoles("ROLE_USER,ROLE_MANAGER");
+        user3.setRole(Role.ROLE_MANAGER);
         user3.setPosition(position);
         user3.setDepartment(department);
         userRepository.save(user3);

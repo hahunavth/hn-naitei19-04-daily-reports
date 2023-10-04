@@ -69,25 +69,35 @@
                             <td
                                     th:text="${department.getUsers().stream().count()}"
                             >
-                                <!-- todo: count managers instead of users -->
                             </td>
                             <td th:text="${department.description}"></td>
                             <td th:text="${#temporals.format(department.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
                             <td>
-                                <a th:href="@{/admin/departments/{id}/edit(id=${department.id})}" class="edit"
-                                   data-toggle="modal"><i
-                                        class="material-icons"
-                                        data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
-                                <a
-                                        class="delete delete-btn"
-                                        href="#" th:attr="data-department-id=${department.id}"
-                                        data-toggle="modal">
-                                    <i
-                                            class="material-icons"
-                                            title="Delete">&#xE872;
-                                    </i>
-                                </a>
+                                <form class="d-flex flex-row mb-0" action="#" th:method="delete"
+                                      th:action="@{/admin/departments/{id}(id=${department.id})}">
+                                    <a th:href="@{/admin/departments/{id}/edit(id=${department.id})}" class="edit"
+                                       data-toggle="modal">
+                                        <button class="btn btn-close-white p-0" type="button">
+                                            <i
+                                                    class="material-icons"
+                                                    data-toggle="tooltip"
+                                                    title="Edit">&#xE254;</i>
+                                        </button>
+                                    </a>
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <a
+                                            class="delete delete-btn"
+                                    >
+                                        <!--                                        href="#" th:attr="data-department-id=${department.id}"-->
+                                        <!--                                        data-toggle="modal"-->
+                                        <button class="btn btn-close-white p-0" type="submit">
+                                            <i
+                                                    class="material-icons"
+                                                    title="Delete">&#xE872;
+                                            </i>
+                                        </button>
+                                    </a>
+                                </form>
                             </td>
                         </tr>
                         <!--                -->

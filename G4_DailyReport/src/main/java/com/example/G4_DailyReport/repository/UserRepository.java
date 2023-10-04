@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.repository;
 
+import com.example.G4_DailyReport.dto.UsernameAndId;
 import com.example.G4_DailyReport.enums.Role;
 
 import com.example.G4_DailyReport.model.Department;
@@ -19,21 +20,18 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {    
+    List<User> findByDepartmentIsNull();
+    List<User> findByDepartment(Department department);
     @Query("SELECT pm.user FROM ProjectMember pm " +
            "JOIN pm.project p " +
            "JOIN pm.user u " +
            "WHERE p.id = ?1" +
-           "AND u.roles LIKE '%'+?2+'%'")
-    List<User> findAllMemberInProjectByProjectIdAndRoles(UUID projectId, String roles);
-    @Query(value = "select u.userName, u.id from User u WHERE u.name in ?1")
-    Map<String, UUID> findAllUserIdByUserName(Set<String> UserName);
+           "AND u.role = ?2")
+    List<User> findAllMemberInProjectByProjectIdAndRole(UUID projectId, Role role);
+    @Query(value = "select new com.example.G4_DailyReport.dto.UsernameAndId(u.id, u.userName) from User u WHERE u.userName in ?1")
+    List<UsernameAndId> findAllUserIdByUserName(Set<String> UserName);
     Optional<User> findByUserName(String username);
-//    Page<User> findAllByDepartmentIdAndPositionName(UUID department, String position, Pageable pageable);
-//    Page<User> findAllByDepartmentIsNullAndPositionName(String position, Pageable pageable);
-//    Page<User> findAllByDepartmentIsNullAndPositionNameAndNameContaining(String position, String name, Pageable pageable);
-    Page<User> findAllByDepartmentIdAndRolesContaining(UUID department, String role, Pageable pageable);
-    Page<User> findAllByDepartmentIsNullAndRolesContaining(String role, Pageable pageable);
-    Page<User> findAllByDepartmentIsNullAndRolesContainingAndNameContaining(String role, String name, Pageable pageable);
-    List<User> findByDepartmentIsNull();
-    List<User> findByDepartment(Department department);
+    Page<User> findAllByDepartmentIdAndRole(UUID department, Role role, Pageable pageable);
+    Page<User> findAllByDepartmentIsNullAndRole(Role role, Pageable pageable);
+    Page<User> findAllByDepartmentIsNullAndRoleAndNameContaining(Role role, String name, Pageable pageable);
 }

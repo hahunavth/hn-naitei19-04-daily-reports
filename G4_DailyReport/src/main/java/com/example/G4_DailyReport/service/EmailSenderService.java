@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.service;
 
+import com.example.G4_DailyReport.enums.Role;
 import com.example.G4_DailyReport.model.Project;
 import com.example.G4_DailyReport.model.Report;
 import com.example.G4_DailyReport.model.User;
@@ -44,7 +45,7 @@ public class EmailSenderService {
 
     public void sendReportNotifyEmailToManager(Report report) {
         Project project = report.getProject();
-        List<User> managers = userRepo.findAllMemberInProjectByProjectIdAndRoles(project.getId(), "ROLE_MANAGER");
+        List<User> managers = userRepo.findAllMemberInProjectByProjectIdAndRole(project.getId(), Role.ROLE_MANAGER);
         for (User manager : managers) {
             this.sendReportNotifyEmailToManager(
                     manager.getUserName(),  // note: username is email

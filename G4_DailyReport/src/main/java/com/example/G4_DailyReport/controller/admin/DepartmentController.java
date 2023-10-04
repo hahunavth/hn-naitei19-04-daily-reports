@@ -110,7 +110,8 @@ public class DepartmentController {
         return "redirect:/admin/departments";
     }
 
-    @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+//    @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+    @RequestMapping(value = "/{id}")
     public String delete(Model model, @PathVariable("id") UUID id) {
         departmentService.deleteById(id);
         return "redirect:/admin/departments";

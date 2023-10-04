@@ -4,6 +4,7 @@ $(document).ready(function () {
         var employeeId = $(this).data('department-id');
         $('#confirmDeleteButton').data('department-id', employeeId);
         $('#confirmDeleteModal').modal('show');
+        console.log("show deleting department " + employeeId);
     });
 
     // When the "Delete" button inside the modal is clicked, send the DELETE request
