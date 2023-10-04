@@ -1,12 +1,9 @@
 $(document).ready(function () {
-    initEvent()
-
+    projectInitEvent()
 });
 
-let selectedRowId;
-
-
-function initEvent() {
+function projectInitEvent() {
+    let selectedRowId;
     // TODO: chọn bản ghi bằng click
     $("#project #row").click(function () {
         selectedRowId = $(this).data("uuid")

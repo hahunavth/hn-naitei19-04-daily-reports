@@ -35,14 +35,10 @@ $(document).ready(function () {
     $(".showModalBtn").click(function () {
 
         const id = $(this).data("id")
-
         // Gửi yêu cầu AJAX để lấy thông tin chi tiết với ID
         $.ajax({
-            url: `/manager/reports/${id}`,
-            method: "GET",
-            // data: { id: id },
+            url: `/manager/reports/${id}`, method: "GET", // data: { id: id },
             success: function (report) {
-
                 // Xử lý dữ liệu trả về từ yêu cầu AJAX
                 console.log(report)
                 const byUser = report.createdByUser;
@@ -58,7 +54,6 @@ $(document).ready(function () {
                 $("#reportModal .actual-work").empty()
                 $("#reportModal .reason-cannot-complete").empty()
                 $("#reportModal .tomorrow-plan").empty()
-
                 $("#reportModal .working-time").empty()
                 //append
                 $("#reportModal .actual-work").append(report.actualWork.replaceAll("+", "<br>-"))
@@ -69,11 +64,10 @@ $(document).ready(function () {
 
                 // Kích hoạt modal
                 // $("#myModal").modal("show");
-            },
-            error: function(e) {
+            }, error: function (e) {
                 // Xử lý lỗi nếu có => alert
                 $(".alert-danger").text(": " + e.responseText).show();
-                setTimeout(function() {
+                setTimeout(function () {
                     $(".alert-danger").hide();
                 }, 3000);
             }

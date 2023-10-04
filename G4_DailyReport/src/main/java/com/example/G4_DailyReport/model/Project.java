@@ -29,8 +29,10 @@ public class Project extends BaseEntity {
 //    @JsonIgnore
     private List<Report> reports;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonIgnore
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true
+//            ,fetch = FetchType.EAGER
+    )
+    @JsonIgnore
     private List<ProjectProcess> projectProcesses;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)

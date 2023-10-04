@@ -3,6 +3,8 @@ package com.example.G4_DailyReport.controller.manager;
 import com.example.G4_DailyReport.enums.ProjectStatus;
 import com.example.G4_DailyReport.model.Project;
 import com.example.G4_DailyReport.service.ProjectService;
+import com.example.G4_DailyReport.model.ProjectProcess;
+import com.example.G4_DailyReport.service.ProjectProcessService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,7 +32,7 @@ import java.util.stream.IntStream;
 public class ProjectController {
 
     private final ProjectService projectService;
-
+    private final ProjectProcessService projectProcessService;
 
     @PostMapping("/projects")
     public String create(@ModelAttribute("project") Project project, RedirectAttributes redirectAttributes,HttpServletRequest request){
@@ -42,7 +46,6 @@ public class ProjectController {
         Project project = projectService.findById(id);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
-
 
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> update(@PathVariable UUID id, @RequestBody Project project) {
@@ -108,4 +111,22 @@ public class ProjectController {
         }
         return pageNumbers;
     }
+
+    @GetMapping("/projects/{id}/project-processes")
+    public String projectProcessesIndex(@PathVariable UUID id,Model model){
+        List<ProjectProcess> projectProcesses = projectService.getProjectProcesses(id);
+        projectProcesses.sort(Comparator.comparing(ProjectProcess::getStartDate));
+        model.addAttribute("projectProcesses",projectProcesses);
+        model.addAttribute("projectId",id);
+        return "managers/pages/processes";
+    }
+
+    @PostMapping("/projects/{id}/project-processes")
+    public ResponseEntity<ProjectProcess> createProjectProcesses(@PathVariable UUID id,@RequestBody ProjectProcess projectProcess){
+        Project existingProject = projectService.findById(id);
+        projectProcess.setProject(existingProject);
+        ProjectProcess createdProjectProcess = projectProcessService.save(projectProcess);
+        return new ResponseEntity<>(createdProjectProcess, HttpStatus.CREATED);
+    }
+
 }
