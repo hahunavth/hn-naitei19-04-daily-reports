@@ -1,25 +1,35 @@
 package com.example.G4_DailyReport.config;
 
-import com.example.G4_DailyReport.service.JpaUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import com.example.G4_DailyReport.helper.MySimpleUrlAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import com.example.G4_DailyReport.service.JpaUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .build();
+    }
+    @Bean
+    //Hashing password
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     private final JpaUserDetailsService jpaUserDetailsService;
 
@@ -30,29 +40,34 @@ public class SecurityConfig {
 //        return http.build();
 //    }
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.userDetailsService(jpaUserDetailsService);
-        http.authorizeHttpRequests(auth -> {
-            auth.anyRequest().authenticated();
-        });
-//        http.sessionManagement(
-//                session ->
-//                        session.sessionCreationPolicy(
-//                                SessionCreationPolicy.STATELESS)
-//        );
-
-        http.formLogin();
-//        http.httpBasic(withDefaults());
-
-        http.csrf(csrf -> csrf.disable());
-//        http.csrf(AbstractHttpConfigurer::disable);
-//        http.headers(headers -> headers.frameOptions(frameOptionsConfig-> frameOptionsConfig.disable()));
-        // http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+        http.authorizeHttpRequests()
+                    .requestMatchers("/resources/**","/managers/**","/css/**","/user/**").permitAll()
+                    .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers("/manager/**").hasAuthority("ROLE_MANAGER")
+                    .requestMatchers("/**").hasAuthority("ROLE_USER")
+                .and()
+                    .headers()
+                    .frameOptions()
+                    .sameOrigin()
+                .and()
+                    .formLogin()
+                    .loginPage("/login.html")
+                    .loginProcessingUrl("/login")
+                    .successHandler(authenticationSuccessHandler())
+                    .failureUrl("/login-error.html")
+                    .permitAll()
+                .and()
+                    .logout()
+                    .permitAll()
+                    .logoutSuccessUrl("/")
+                .and().cors().and().csrf().disable();
         return http.build();
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new MySimpleUrlAuthenticationSuccessHandler();
     }
 }
