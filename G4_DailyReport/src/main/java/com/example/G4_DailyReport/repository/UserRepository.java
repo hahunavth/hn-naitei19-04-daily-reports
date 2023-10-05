@@ -1,6 +1,7 @@
 package com.example.G4_DailyReport.repository;
 
 import com.example.G4_DailyReport.enums.Role;
+
 import com.example.G4_DailyReport.model.Department;
 import com.example.G4_DailyReport.model.User;
 import org.springframework.data.domain.Page;
@@ -15,16 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Page<User> findByDepartment(Department department, Pageable pageable);
-    Page<User> findByDepartmentIsNull(Pageable pageable);
-    List<User> findByDepartmentIsNull();
-    List<User> findByDepartment(Department department);
-    Page<User> findAllByDepartmentIdAndPositionName(UUID department, String position, Pageable pageable);
-    Page<User> findAllByDepartmentIsNullAndPositionName(String position, Pageable pageable);
-    Page<User> findAllByDepartmentIsNullAndPositionNameAndNameContaining(String position, String name, Pageable pageable);
+@Repository
+public interface UserRepository extends JpaRepository<User, UUID> {    
     @Query("SELECT pm.user FROM ProjectMember pm " +
            "JOIN pm.project p " +
            "JOIN pm.user u " +
@@ -40,4 +34,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Page<User> findAllByDepartmentIdAndRolesContaining(UUID department, String role, Pageable pageable);
     Page<User> findAllByDepartmentIsNullAndRolesContaining(String role, Pageable pageable);
     Page<User> findAllByDepartmentIsNullAndRolesContainingAndNameContaining(String role, String name, Pageable pageable);
+    List<User> findByDepartmentIsNull();
+    List<User> findByDepartment(Department department);
 }

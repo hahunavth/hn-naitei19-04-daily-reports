@@ -104,8 +104,8 @@
 				<a href="#" class="sidebar-toggler flex-shrink-0">
 					<i class="fa fa-bars"></i>
 				</a>
-				<form class="d-none d-md-flex ms-4">
-					<input class="form-control border-0" type="search" placeholder="Search">
+				<form th:action="@{/manager/departments/listEmployee}" method="get" class="d-none d-md-flex ms-4">
+					<input th:value="${query}"name="query" class="form-control border-0" type="search" placeholder="Search by name">
 				</form>
 				<div class="navbar-nav align-items-center ms-auto">
 					<div class="nav-item dropdown">
@@ -138,7 +138,7 @@
 						</div>
 
 					</div>
-					<div class="table-responsive">
+					<div class="table-responsive" >
 						<table class="table text-start align-middle table-bordered table-hover mb-0">
 							<thead>
 								<tr class="text-dark">
@@ -160,7 +160,7 @@
 									<td th:text="${user_each.position.name}"></td>
 
 									<td th:if="${user.id!=user_each.id}"><a class="btn btn-sm btn-danger"
-											th:href="@{/manager/departments/delete(userId=${user_each.id})}">Delete</a>
+											th:href="@{/manager/departments/delete(query=${queryName},userId=${user_each.id})}">Delete</a>
 									</td>
 
 								</tr>
@@ -174,26 +174,26 @@
 							<ul class="pagination">
 								<li th:if="${usersPage.hasPrevious()}">
 									<a style="margin-right: 10px;"
-										th:href="@{/manager/departments/listEmployee(page=0)}">First</a>
+										th:href="@{/manager/departments/listEmployee(query=${queryName},page=0)}">First</a>
 								</li>
 								<li th:if="${usersPage.hasPrevious()}">
 									<a style="margin-right: 10px;"
-										th:href="@{/manager/departments/listEmployee(page=${usersPage.number - 1})}">Previous</a>
+										th:href="@{/manager/departments/listEmployee(query=${queryName},page=${usersPage.number - 1})}">Previous</a>
 								</li>
 								<li th:each="pageNumber : ${#numbers.sequence(0, usersPage.totalPages - 1)}">
 									<span th:if="${usersPage.number == pageNumber}"><span style="margin-right: 10px;"
 											th:text="${pageNumber + 1}"></span></span>
 									<a style="margin-right: 10px;" th:unless="${usersPage.number == pageNumber}"
-										th:href="@{/manager/departments/listEmployee(page=${pageNumber})}"
+										th:href="@{/manager/departments/listEmployee(query=${queryName},page=${pageNumber})}"
 										th:text="${pageNumber + 1}"></a>
 								</li>
 								<li th:if="${usersPage.hasNext()}">
 									<a style="margin-right: 10px;"
-										th:href="@{/manager/departments/listEmployee(page=${usersPage.number + 1})}">Next</a>
+										th:href="@{/manager/departments/listEmployee(query=${queryName},page=${usersPage.number + 1})}">Next</a>
 								</li>
 								<li th:if="${usersPage.hasNext()}">
 									<a style="margin-right: 10px;"
-										th:href="@{/manager/departments/listEmployee(page=${usersPage.totalPages - 1})}">Last</a>
+										th:href="@{/manager/departments/listEmployee(query=${queryName},page=${usersPage.totalPages - 1})}">Last</a>
 								</li>
 							</ul>
 						</div>
