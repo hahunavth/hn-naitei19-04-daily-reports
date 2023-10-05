@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +18,7 @@ public class ProjectJob extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "project_process_id")
+    @JsonIgnore
     private ProjectProcess projectProcess;
 
     @OneToMany(mappedBy = "projectJob")

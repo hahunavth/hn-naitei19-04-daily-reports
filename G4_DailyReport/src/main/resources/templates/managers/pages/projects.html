@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-<<<<<<< Updated upstream
-      layout:decorate="~{managers/layout/layout}">>
-=======
       layout:decorate="~{managers/layout/layout}">
->>>>>>> Stashed changes
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,10 +9,6 @@
 <div layout:fragment="content">
 
     <!--    Search by name and date-->
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     <div class="d-flex justify-content-between align-items-end me-5">
         <form th:action="@{/manager/projects}" method="get" class="w-50 d-flex justify-content-start gap-2 pt-4 px-4">
             <input class="form-control bg-transparent w-50 " type="text" placeholder="Enter name" name="name"/>
@@ -31,21 +23,12 @@
                 <i class="fa fa-plus"></i>
                 ADD
             </button>
-            <button id="updateProject" type="button" class="btn btn-primary"
-<<<<<<< Updated upstream
-                    >
-=======
-            >
->>>>>>> Stashed changes
+            <button id="updateProject" type="button" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
                 UPDATE
             </button>
             <button id="deleteProject" type="button" class="btn btn-primary showModalBtn" data-bs-toggle="modal"
-<<<<<<< Updated upstream
                     data-bs-target="#deleteModal" >
-=======
-                    data-bs-target="#deleteModal">
->>>>>>> Stashed changes
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 DELETE
             </button>
@@ -81,18 +64,9 @@
                             <td class="text-center" th:text="${project.status}">Naitei trainning</td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-<<<<<<< Updated upstream
-                                <button type="button" class="btn btn-sm btn-success showModalBtn" data-bs-toggle="modal"
-                                        data-bs-target="#reportModal" th:data-id="${project.id.toString()}">
-                                    View Detail
-                                </button>
-=======
                                 <a th:href="@{/manager/projects/{id}/project-processes(id=${project.id.toString()})}">
                                     <button type="button" class="btn btn-sm btn-success ">View Detail</button>
                                 </a>
-
-
->>>>>>> Stashed changes
                             </td>
                         </tr>
                         </tbody>
@@ -102,10 +76,6 @@
                 <div th:replace="~{managers/components/pagination::pagination(${page},'/manager/projects')}"></div>
             </div>
             <form th:action="@{/manager/projects}" th:object="${project}" method="post">
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 <!--Add Project Form-->
                 <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -149,21 +119,13 @@
                     </div>
                 </div>
             </form>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             <!--update project form-->
             <div class="modal fade" id="update-project-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-<<<<<<< Updated upstream
-                            <h5 class="modal-title" >Update project</h5>
-=======
                             <h5 class="modal-title">Update project</h5>
->>>>>>> Stashed changes
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                         </div>
@@ -176,20 +138,12 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="update-startDate">Start date</label>
-<<<<<<< Updated upstream
-                                    <input id="update-startDate" type="date" class="form-control" >
-=======
                                     <input id="update-startDate" type="date" class="form-control">
->>>>>>> Stashed changes
                                 </div>
                                 <div class="col">
                                     <label for="update-endDate">End date</label>
                                     <input id="update-endDate" type="date" class="form-control" name="endDate"
-<<<<<<< Updated upstream
-                                           >
-=======
                                     >
->>>>>>> Stashed changes
                                 </div>
                             </div>
                             <div class="form-group">
@@ -202,11 +156,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-<<<<<<< Updated upstream
-                            <button id="update-submit"type="submit" class="btn btn-primary">Submit</button>
-=======
                             <button id="update-submit" type="submit" class="btn btn-primary">Submit</button>
->>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
@@ -231,10 +181,7 @@
             </div>
         </div>
     </div>
-<<<<<<< Updated upstream
-=======
     <script th:src="@{/managers/js/project.js}"></script>
->>>>>>> Stashed changes
 </div>
 </body>
 </html>

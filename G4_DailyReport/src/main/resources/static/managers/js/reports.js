@@ -1,12 +1,10 @@
 $(document).ready(function () {
     // flash msg
-    $(".alert").show().delay(3000).fadeOut();
 
 // Kiểm tra xem có flash message trong localStorage không
     var flashMessage = localStorage.getItem('flashMessage');
     if (flashMessage) {
         $("#alert").text(flashMessage).show().delay(3000).fadeOut();
-
         // Xóa flash message khỏi localStorage sau khi đã hiển thị
         localStorage.removeItem('flashMessage');
     }
@@ -25,12 +23,6 @@ $(document).ready(function () {
 // Đặt giá trị placeholder cho thẻ input
     document.getElementById('dateInput').setAttribute('value', placeholderValue);
 
-// Detail report
-//     var myModalEl = document.getElementById('reportModal')
-//     myModalEl.addEventListener('show.bs.modal', function (event) {
-//         console.log(event.relatedTarget)
-//         console.log($(this))
-//     })
 
     $(".showModalBtn").click(function () {
 
