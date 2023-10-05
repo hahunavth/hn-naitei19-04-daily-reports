@@ -30,7 +30,7 @@ public class ImportUserDto {
     @ExcelCell(3)
     @NotBlank(message = "roles_empty")
 //    @Size(max = 100, message = "name_validation_size")
-    private String roles;
+    private String role;
 
     @ExcelCell(4)
 //    @Size(max = 512, message = "name_validation_size")

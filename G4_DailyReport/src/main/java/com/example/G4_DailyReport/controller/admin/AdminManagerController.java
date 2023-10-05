@@ -72,7 +72,8 @@ public class AdminManagerController {
      * - Allow cors for this method to be able to use DELETE method
      * - Change _manager_table.html to use DELETE method
      */
-    @RequestMapping(path = "delete/{managerId}", method = {RequestMethod.DELETE, RequestMethod.POST})
+    @DeleteMapping("delete/{managerId}")
+//    @RequestMapping(path = "delete/{managerId}", method = {RequestMethod.DELETE, RequestMethod.POST})
     public String deleteSelectedItems(
             Model model,
             @PathVariable("departmentId") UUID departmentId,

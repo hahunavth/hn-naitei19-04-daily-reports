@@ -1,6 +1,7 @@
 package com.example.G4_DailyReport.service.impl;
 
 import com.example.G4_DailyReport.dto.ImportUserDto;
+import com.example.G4_DailyReport.exception.ImportEmailFailedException;
 import com.example.G4_DailyReport.model.User;
 import com.example.G4_DailyReport.repository.DepartmentRepository;
 import com.example.G4_DailyReport.repository.PositionRepository;
@@ -31,7 +32,7 @@ public class ExcelServiceImpl implements ExcelService {
     private final PositionRepository positionRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public int createFromExcel(MultipartFile file, HttpServletResponse response) {
+    public int createFromExcel(MultipartFile file, HttpServletResponse response) throws ImportEmailFailedException {
         ImportExcelValidator<ImportUserDto, User> userImportValidator = new UserImportExcelValidator(
                 file, Constants.USER_HEADER_START, mapper,
                 userRepository, userService, departmentRepository, positionRepository,

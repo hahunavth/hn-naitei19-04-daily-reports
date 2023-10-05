@@ -38,8 +38,8 @@ public class ReportController {
     private UserRepository userRepo;
     @Autowired
     private ProjectRepository projectRepo;
-    // @Autowired
-    // private EmailSenderService emailSenderService;
+    @Autowired
+    private EmailSenderService emailSenderService;
     
     public ReportController(ReportRepository reportRepo) {
         this.reportRepo = reportRepo;
@@ -78,7 +78,7 @@ public class ReportController {
 
         Report savedReport = reportRepo.save(report);
         // Send email to manager in the project
-        // emailSenderService.sendReportNotifyEmailToManager(savedReport);
+        emailSenderService.sendReportNotifyEmailToManager(savedReport);
         return "redirect:/reports/edit";
     }
 }

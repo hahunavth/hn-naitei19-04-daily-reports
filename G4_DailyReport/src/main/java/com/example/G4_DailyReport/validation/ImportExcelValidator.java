@@ -1,5 +1,6 @@
 package com.example.G4_DailyReport.validation;
 
+import com.example.G4_DailyReport.exception.ImportEmailFailedException;
 import com.example.G4_DailyReport.util.Constants;
 import com.poiji.bind.Poiji;
 import com.poiji.exception.PoijiExcelType;
@@ -95,7 +96,7 @@ public abstract class ImportExcelValidator<S, T> {
         return this;
     }
 
-        public void errorMessengers(List<String> keyComments, int temp) {
+    public void errorMessengers(List<String> keyComments, int temp) {
         List<String> comments = new ArrayList<>();
 //        ReloadableResourceBundleMessageSource messageSource = messageSource();
 
@@ -115,7 +116,7 @@ public abstract class ImportExcelValidator<S, T> {
         }
     }
 
-        public void removeComment(XSSFSheet sheet) {
+    public void removeComment(XSSFSheet sheet) {
         // Get comment exists
         Map<CellAddress, XSSFComment> oldComments = sheet.getCellComments();
         Cell cell;
@@ -157,29 +158,29 @@ public abstract class ImportExcelValidator<S, T> {
         }
     }
 
-        public ImportExcelValidator<S, T> thenReturnExcelIfError(HttpServletResponse response) {
+        public ImportExcelValidator<S, T> thenReturnExcelIfError(HttpServletResponse response) throws ImportEmailFailedException {
         if (!ObjectUtils.isEmpty(errorsDetail)) {
-
-            try {
-                XSSFWorkbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
-                XSSFSheet sheet = workbook.getSheetAt(0);
-
-                // remove comment
-                this.removeComment(sheet);
-                // map row index and message error
-                Map<Integer, String> mapErrorDetail = errorsDetail.stream().collect(Collectors.toMap(ErrorDetail::getIndex, ErrorDetail::getMessage));
-                // Set comment and style in sheet
-                this.setCommentStyle(workbook, sheet, mapErrorDetail);
-
-                response.setHeader("Content-Disposition", "attachment; filename=" + multipartFile.getOriginalFilename() + ".xlsx");
-                ServletOutputStream out = response.getOutputStream();
-
-                workbook.write(out);
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                // add return Error when create new file excel
-            }
+            throw new ImportEmailFailedException(this.getErrorsDetail());
+//            try {
+//                XSSFWorkbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
+//                XSSFSheet sheet = workbook.getSheetAt(0);
+//
+//                // remove comment
+//                this.removeComment(sheet);
+//                // map row index and message error
+//                Map<Integer, String> mapErrorDetail = errorsDetail.stream().collect(Collectors.toMap(ErrorDetail::getIndex, ErrorDetail::getMessage));
+//                // Set comment and style in sheet
+//                this.setCommentStyle(workbook, sheet, mapErrorDetail);
+//
+//                response.setHeader("Content-Disposition", "attachment; filename=" + multipartFile.getOriginalFilename() + ".xlsx");
+//                ServletOutputStream out = response.getOutputStream();
+//
+//                workbook.write(out);
+//                out.flush();
+//                out.close();
+//            } catch (IOException e) {
+//                // add return Error when create new file excel
+//            }
             // add return validate error
         }
 
