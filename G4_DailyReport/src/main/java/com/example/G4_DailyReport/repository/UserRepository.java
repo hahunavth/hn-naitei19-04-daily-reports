@@ -25,8 +25,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query("SELECT pm.user FROM ProjectMember pm " +
            "JOIN pm.project p " +
            "JOIN pm.user u " +
-           "WHERE p.id = ?1" +
-           "AND u.role = ?2")
+           "WHERE p.id = ?1 " +
+           "AND u.role = ?2 ")
     List<User> findAllMemberInProjectByProjectIdAndRole(UUID projectId, Role role);
     @Query(value = "select new com.example.G4_DailyReport.dto.UsernameAndId(u.id, u.userName) from User u WHERE u.userName in ?1")
     List<UsernameAndId> findAllUserIdByUserName(Set<String> UserName);

@@ -78,7 +78,11 @@ public class ReportController {
 
         Report savedReport = reportRepo.save(report);
         // Send email to manager in the project
-        emailSenderService.sendReportNotifyEmailToManager(savedReport);
+        try {
+            emailSenderService.sendReportNotifyEmailToManager(savedReport);
+        } catch (Exception e) {
+            System.out.println("Error when sending email: " + e.getMessage());
+        }
         return "redirect:/reports/edit";
     }
 }

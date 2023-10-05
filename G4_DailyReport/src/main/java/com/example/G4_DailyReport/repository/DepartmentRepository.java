@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, UUID>, JpaSpecificationExecutor<Department> {
+    public Department findByName(String name);
 }
